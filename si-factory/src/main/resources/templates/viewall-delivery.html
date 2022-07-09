@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <title>Request Update Item</title>
+  <meta charset="UTF-8">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Delivery')"></nav>
+<div class="container">
+    <br>
+    <h2>Daftar Delivery</h2>
+    <div>
+        
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>ID Delivery</th>
+                <th>Date is Created</th>
+                <th>Date is Deliver</th>
+                <th>Sent</th>
+                <th>Kurir</th>
+                <th>ID Request Update Item</th>
+                <th th:if="${deliveryUser.role.namaRole} == 'STAFF_KURIR'">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="delivery, iterationStatus : ${listDelivery}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${delivery.idDelivery}"></td>
+                <td th:text="${delivery.tanggal_dibuat}"></td>
+                <td th:text="${delivery.tanggal_dikirim}"></td>
+                <td th:text="${delivery.sent} == true ? 'v' : 'x'"></td>
+                <td th:text="${delivery.kurir.nama}"></td>
+                <td th:text="${delivery.requestUpdateItem.id_request_update_item}"></td>
+                <td th:if="${deliveryUser.role.namaRole} == 'STAFF_KURIR'">
+                    <a class="btn btn-primary" th:if="${delivery.sent} == false" th:href="@{/delivery/} + ${delivery.idDelivery} + '/send'">
+                        Send
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div> 
+
+    <a class="btn btn-primary" href="/">Home</a>
+</div>
+
+</body>
+
+</html>

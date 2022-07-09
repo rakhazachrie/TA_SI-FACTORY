@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Si Factory</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Update Item')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Update Stok Item</h2>
+                <br>
+                <form th:action="@{/request/update}" th:object="${produksi}" method="POST">
+                    UUID Item : <br>
+                    <p th:text="*{idItem}"></p>
+                    <input type="hidden" th:field="*{idItem}" />
+                    <br><br>
+
+                    ID Kategori : <br>
+                    <p th:text="*{id_kategori}"></p>
+                    <input type="hidden" th:field="*{id_kategori}" />
+                    <br><br>
+
+                    Tambahan Stok : <br>
+                    <p th:text="*{tambahan_stok}"></p>
+                    <input type="hidden" th:field="*{tambahan_stok}" />
+                    <br><br>
+
+                    Tanggal Produksi: <br>
+                    <p th:text="*{tanggal_produksi}"></p>
+                    <input type="hidden" th:field="*{tanggal_produksi}" />
+
+                    ID Pegawai: <br>
+                    <p th:text="*{pegawai.id_pegawai}"></p>
+                    <input type="hidden" th:field="*{pegawai}" />
+                    <input type="hidden" th:field="*{requestUpdateItem}" />
+                    <label>ID Mesin</label>
+                    <select name="mesin" class="form-control">
+                        <option selected value="">--Pilih Mesin--</option>
+                        <option th:each="mesin: ${listMesin}"
+                                th:value="${mesin.id_mesin}"
+                                th:text="${mesin.nama}">
+                        </option>
+                    </select>
+                    <br>
+
+
+                    <button class="btn btn-danger" type="submit">Submit</button>
+                    <a class="btn btn-danger" href="/item/viewall">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

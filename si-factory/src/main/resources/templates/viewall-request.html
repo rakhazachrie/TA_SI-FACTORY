@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Request Update Item</title>
+  <meta charset="UTF-8">
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Request Update Item')"></nav>
+<div class="container">
+    <br>
+    
+    <h2>Daftar Seluruh Request Update Item</h2>
+    <div>
+        
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>ID Request Update Item</th>
+                <th>ID Item</th>
+                <th>Kategori</th>
+                <th>Tambahan Stok</th>
+                <th>Tanggal Request</th>
+                <th>ID Cabang</th>
+                <th>Executed</th>
+<!--                <th>ID Delivery</th>-->
+                <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="request, iterationStatus : ${listRequest}">
+                <td th:text="${iterationStatus.count}"></td>
+                <td th:text="${request.id_request_update_item}"></td>
+                <td th:text="${request.id_item}"></td>
+                <td th:text="${request.id_kategori}"></td>
+                <td th:text="${request.tambahan_stok}"></td>
+                <td th:text="${request.tanggal_request}"></td>
+                <td th:text="${request.id_cabang}"></td>
+                <td th:text="${request.executed}"></td>
+<!--                <td th:text="${request.id_delivery}"></td>-->
+                <td>
+                    <a sec:authorize="hasAuthority('STAFF_GUDANG')" th:if="${!request.executed}" class="btn btn-danger" th:href="@{/request/update/} + ${request.id_request_update_item}">Update</a>
+                    <a sec:authorize="hasAuthority('STAFF_OPERASIONAL')" th:if="${request.executed}" class="btn btn-warning" th:href="@{/request/assign-delivery/} + ${request.id_request_update_item}">Buat Delivery</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div> 
+
+    <a class="btn btn-primary" href="/">Home</a>
+</div>
+
+</body>
+
+</html>

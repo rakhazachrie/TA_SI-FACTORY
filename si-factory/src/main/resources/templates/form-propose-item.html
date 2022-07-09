@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+	<title>Si Factory</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Propose Item')"></nav>
+<div class="container">
+	<div class="card m-4 p-4">
+		<div class="card-body">
+			<div class="justify-content-center">
+				<h2>Propose Item</h2>
+				<br>
+				<form th:action="@{/item/add}" th:object="${item}" method="POST">
+					Name : <br>
+					<input type="text" th:field="*{name}" th:value="*{name}" required />
+					<br><br>
+
+					Price : <br>
+					<input type="number" th:field="*{price}" th:value="*{price}" required />
+					<br><br>
+
+					Stock : <br>
+					<input type="number" th:field="*{stock}" th:value="*{stock}" required/>
+					<br><br>
+
+					Category : <br>
+					<select name="category" class="form-control" required>
+                        <option value="">--Choose Category--</option>
+                        <option th:each="category: ${categories}"
+                                th:value="${category.id_kategori}"
+                                th:text="${category.kategori}"
+								th:selected="*{category} == ${category.id_kategori} ? true : false"
+								>
+                        </option>
+                    </select>
+
+					Cluster : <br>
+					<input type="text" th:field="*{cluster}" th:value="*{cluster}" readonly/>
+					<br><br>
+					<button class="btn btn-primary" type="submit">Submit</button>
+					<a class="btn btn-primary" href="/">Cancel</a>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

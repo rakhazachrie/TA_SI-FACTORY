@@ -1,0 +1,14 @@
+{
+	"status": 200,
+	"message": "OK",
+	"result": [
+		{
+			"id": 1,
+			"alamat": "Rengasdengklok"
+		},
+		{
+			"id": 2,
+			"alamat": "Cibubur"
+		}
+	]
+}

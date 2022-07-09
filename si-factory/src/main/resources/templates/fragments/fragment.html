@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <head th:fragment="css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  </head>
+  <head th:fragment="js">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+  </head>
+</head>
+<body>
+<nav th:fragment="navbar(page)" class="navbar navbar-expand-lg navbar-light bg-danger" style="background-color: #e3f2fd;">
+  <a class="navbar-brand font-weight-bold text-warning" href="/">Si Factory</a>
+  <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      </li>
+      <li th:classappend="${page == 'Item' } ? active : 'Item'" class="nav-item text-warning" style="font-weight: bold">
+        <a class="nav-item nav-link text-light" th:href="@{/item/viewall}">Item</a>
+      </li>
+      <li th:classappend="${page == 'Delivery' } ? active : 'Delivery'" class="nav-item text-warning" style="font-weight: bold">
+        <a sec:authorize="hasAnyAuthority('STAFF_OPERASIONAL', 'STAFF_KURIR')" class="nav-item nav-link text-light" th:href="@{/delivery/viewall}">Delivery</a>
+      </li>
+      <li th:classappend="${page == 'Pegawai' } ? active : 'Pegawai'" class="nav-item text-warning" style="font-weight: bold">
+        <a sec:authorize="hasAnyAuthority('ADMIN', 'FACTORY_MANAGER')" class="nav-item nav-link text-light" th:href="@{/pegawai/viewall}">Pegawai</a>
+      </li>
+      <li th:classappend="${page == 'Produksi' } ? active : 'Produksi'" class="nav-item text-warning" style="font-weight: bold">
+        <a class="nav-item nav-link text-light" th:href="@{/produksi/viewall}">Produksi</a>
+      </li>
+      <li th:classappend="${page == 'Request Update Item' } ? active : 'Request Update Item'" class="nav-item text-warning" style="font-weight: bold">
+        <a sec:authorize="hasAnyAuthority('STAFF_OPERASIONAL', 'STAFF_GUDANG')" class="nav-item nav-link text-light" th:href="@{/request/viewall}">Request Update Item</a>
+      </li>
+    </ul>
+    <!--        <form class="form-inline my-2 my-lg-0" th:action="@{/cabang/view}" method="GET">-->
+    <!--            <input class="form-control mr-sm-2" type="search"-->
+    <!--                   name="noCabang" placeholder="No Cabang" aria-label="Search">-->
+    <!--            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>-->
+    <!--        </form>-->
+    <ul class="navbar nav pull-right">
+      <a class="nav-item nav-link text-light" th:href="@{/logout}">Logout</a>
+    </ul>
+  </div>
+</nav>
+
+</body>
+</html>

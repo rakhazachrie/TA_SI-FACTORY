@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Home </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body >
+<nav th:replace="fragments/fragment :: navbar('Home')"></nav>
+
+<div class="d-flex justify-content-center">
+    <div class="m-4">
+        <h2 th:text="'Hello ' + ${pegawaiNama} + '!' + ' Welcome to Si Factory'">Login as</h2>
+<!--        <h2>Welcome to <span class="text-warning">Si Factory</span></h2>-->
+        <div class="my-3 d-flex justify-content-center">
+            <a th:href="@{/item/viewall}" class="mx-2 btn btn-warning">List Item</a>
+            <a th:href="@{produksi/viewall}" class="mx-2 btn btn-warning">Daftar Produksi</a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <a sec:authorize="hasAnyAuthority('STAFF_OPERASIONAL', 'STAFF_GUDANG')" th:href="@{/request/viewall}" class="mx-2 btn btn-warning">Daftar Request Update Item</a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <a sec:authorize="hasAnyAuthority('STAFF_OPERASIONAL', 'STAFF_KURIR')" th:href="@{/delivery/viewall}" class="mx-2 btn btn-warning">Daftar Delivery</a>
+        </div>
+        <div class="my-3 d-flex justify-content-center">
+            <a sec:authorize="hasAnyAuthority('ADMIN', 'FACTORY_MANAGER')" th:href="@{/pegawai/viewall}" class="mx-2 btn btn-warning">Daftar Pegawai</a>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/pegawai/add}" class="mx-2 btn btn-warning">Tambah Pegawai</a>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
